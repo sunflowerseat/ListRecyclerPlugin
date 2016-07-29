@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ListRecyclerPlugin.iml" filepath="$PROJECT_DIR$/ListRecyclerPlugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/list-plugin/list-plugin.iml" filepath="$PROJECT_DIR$/list-plugin/list-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/list-plugin/plugin-lib.iml" filepath="$PROJECT_DIR$/list-plugin/plugin-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/recycler-plugin/recycler-plugin.iml" filepath="$PROJECT_DIR$/recycler-plugin/recycler-plugin.iml" />
+    </modules>
+  </component>
+</project>
