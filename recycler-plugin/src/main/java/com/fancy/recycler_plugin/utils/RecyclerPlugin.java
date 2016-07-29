@@ -101,6 +101,14 @@ public class RecyclerPlugin {
         return this;
     }
 
+    public RecyclerPlugin addHeader(View view) {
+        if(headerAndFooterAdapter == null)
+            headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
+        headerAndFooterAdapter.addHeaderView(view);
+        lastAdapter = headerAndFooterAdapter;
+        return this;
+    }
+
     public RecyclerPlugin createHeader(View v) {
         headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
         header = v;
