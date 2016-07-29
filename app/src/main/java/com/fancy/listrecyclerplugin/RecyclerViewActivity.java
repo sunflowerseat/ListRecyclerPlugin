@@ -57,6 +57,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
 
 
 
+
         plugin = new RecyclerPlugin(this,recycler, mAdapter);
 //        plugin.createViewpagerHeader(new ViewPagerHeader(this,getSupportFragmentManager(),new HeaderFragment()).create());
 
