@@ -53,6 +53,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                 });
             }
         };*/
+
         mAdapter = new MyAdapter();
 
 
