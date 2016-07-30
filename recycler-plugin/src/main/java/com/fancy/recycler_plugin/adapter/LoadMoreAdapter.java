@@ -168,11 +168,14 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void removeLoadMoreView() {
 //        this.remo
         mLoadMoreView.setVisibility(View.GONE);
+        mLoadMoreView = null;
+        notifyDataSetChanged();
     }
 
     public void setLoadMoreVisible(boolean flag) {
         mLoadMoreView.setVisibility((flag) ? View.VISIBLE : View.GONE);
     }
+
 
     @Override
     public void registerAdapterDataObserver(RecyclerView.AdapterDataObserver observer) {

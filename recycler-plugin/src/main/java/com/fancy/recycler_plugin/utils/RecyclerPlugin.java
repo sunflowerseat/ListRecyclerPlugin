@@ -220,12 +220,15 @@ public class RecyclerPlugin {
         if (loadMoreAdapter != null) {
             if (visible) {
                 hasFooter = true;
-                if (footer != null) {
+                /*if (footer != null) {
                     loadMoreAdapter.setLoadMoreVisible(true);
                 } else {
                     loadMoreAdapter.setLoadMoreView(footer);
                     loadMoreAdapter.notifyDataSetChanged();
-                }
+                }*/
+                loadMoreAdapter.setLoadMoreView(footer);
+                loadMoreAdapter.setLoadMoreVisible(true);
+                loadMoreAdapter.notifyDataSetChanged();
                 loadMoreAdapter.addData();
 
             } else {

@@ -40,7 +40,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         recycler.setLayoutManager(new GridLayoutManager(this, 2));
         recycler.addItemDecoration(new Divider(this));
 
-        mAdapter = new CommonAdapter<String>(RecyclerViewActivity.this,R.layout.item_list,mDatas) {
+        /*mAdapter = new CommonAdapter<String>(RecyclerViewActivity.this,R.layout.item_list,mDatas) {
             @Override
             protected void convert(ViewHolder holder, String s, final int position) {
                 holder.setText(R.id.id_item_list_title, s);
@@ -52,7 +52,8 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                     }
                 });
             }
-        };
+        };*/
+        mAdapter = new MyAdapter();
 
 
 
@@ -62,7 +63,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
 
         plugin.createBannerHeader(getLayoutInflater(), localImages);
         plugin.createAddMore(getLayoutInflater() ,this);
-        plugin.setAddMoreVisible(false);
+//        plugin.setAddMoreVisible(false);
 
 //
         recycler.setAdapter(plugin.getLastAdapter());
@@ -117,6 +118,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         public void onBindViewHolder(final MyViewHolder holder, final int position)
         {
             holder.tv.setText(mDatas.get(position) + ":" +position);
+//            if(position == 9) plugin.setAddMoreVisible(true);
             holder.tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
