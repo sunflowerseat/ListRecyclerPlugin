@@ -1,2 +1,4 @@
 # ListRecyclerPlugin
 类似插件一样方便地为listview和recyclerview添加头部广告位，下拉刷新，上拉加载，滑动删除功能
+
+listview的还没写，不知道意义大不大，感觉没什么用，listview本身就有addHeader和Footer的方法
