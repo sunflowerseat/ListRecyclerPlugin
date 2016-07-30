@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.bumptech.glide.Glide;
 import com.fancy.recycler_plugin.R;
 import com.fancy.recycler_plugin.adapter.HeaderAndFooterAdapter;
 import com.fancy.recycler_plugin.adapter.LoadMoreAdapter;
@@ -24,9 +25,12 @@ import com.fancy.recycler_plugin.view.HeaderFragment;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.transform.Transformer;
+
+import cn.bingoogolapple.bgabanner.BGABanner;
 
 /**
  * Created by sunflowerseat on 2016/7/19.
@@ -78,7 +82,8 @@ public class RecyclerPlugin {
         return this;
     }
 
-    public RecyclerPlugin createBannerHeader(LayoutInflater inflater, List localImages) {
+    public RecyclerPlugin createBannerHeader(LayoutInflater inflater, List<Integer> localImages) {
+        /**
         headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
 
         header = inflater.inflate(R.layout.header_banner, null);
@@ -96,6 +101,27 @@ public class RecyclerPlugin {
                 .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
                 .setScrollDuration(2000);
 
+        headerAndFooterAdapter.addHeaderView(header);
+        lastAdapter = headerAndFooterAdapter;**/
+        headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
+
+        header = inflater.inflate(R.layout.header_banner, null);
+        BGABanner banner = (BGABanner) header.findViewById(R.id.banner);
+        banner.setAdapter(new BGABanner.Adapter() {
+            @Override
+            public void fillBannerItem(BGABanner banner, View view, Object model, int position) {
+//                Glide.with(banner.getContext()).load(model).dontAnimate().thumbnail(0.1f).into((ImageView) view);
+                ImageView imageView = (ImageView) view;
+                imageView.setImageResource((Integer) model);
+            }
+        });
+        List<String> texts = new ArrayList<>();
+        for (Integer localImage : localImages) {
+            texts.add("提示文案");
+        }
+        banner.setData(localImages,texts);
+
+        // 初始化ListView
         headerAndFooterAdapter.addHeaderView(header);
         lastAdapter = headerAndFooterAdapter;
         return this;
@@ -118,7 +144,6 @@ public class RecyclerPlugin {
         return this;
     }
 
-    //TODO 需添加弱引用
     public RecyclerPlugin createHeader(LayoutInflater inflater, int resid) {
         headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
         header = inflater.inflate(resid, null);
