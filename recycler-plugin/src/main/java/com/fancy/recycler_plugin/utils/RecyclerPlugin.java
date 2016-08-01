@@ -169,8 +169,6 @@ public class RecyclerPlugin {
             View spaceLine = footer.findViewById(R.id.footer_divider);
             loadMoreAdapter.setLoadMoreView(R.layout.default_loading);
             loadMoreAdapter.setOnLoadMoreListener(listener);
-
-            recyclerView.setAdapter(loadMoreAdapter);
             lastAdapter = loadMoreAdapter;
         }
         return this;
@@ -193,7 +191,6 @@ public class RecyclerPlugin {
             View spaceLine = footer.findViewById(R.id.footer_divider);
             loadMoreAdapter.setLoadMoreView(R.layout.default_loading);
             loadMoreAdapter.setOnLoadMoreListener(listener);
-            recyclerView.setAdapter(loadMoreAdapter);
             lastAdapter = loadMoreAdapter;
         }
         return this;
