@@ -174,16 +174,15 @@ public class RecyclerPlugin {
         return this;
     }
 
+    //initVisible表示 是否显示addMore视图
     public RecyclerPlugin createAddMore(LayoutInflater inflater, boolean initVisible, final LoadMoreAdapter.OnLoadMoreListener listener) {
         if (headerAndFooterAdapter != null) {
             loadMoreAdapter = new LoadMoreAdapter(headerAndFooterAdapter);
             footer = inflater.inflate(R.layout.default_loading, null);
-//            loadMoreAdapter.setLoadMoreView(R.layout.default_loading);
             if (initVisible)
                 loadMoreAdapter.setLoadMoreView(footer);
             loadMoreAdapter.setOnLoadMoreListener(listener);
 
-//            recyclerView.setAdapter(loadMoreAdapter);
             lastAdapter = loadMoreAdapter;
         } else {
             loadMoreAdapter = new LoadMoreAdapter(adapter);
