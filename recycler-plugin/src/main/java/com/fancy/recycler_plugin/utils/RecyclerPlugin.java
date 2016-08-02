@@ -47,7 +47,7 @@ public class RecyclerPlugin {
     public RecyclerView.Adapter lastAdapter;
     boolean hasFooter = true;
 
-    public RecyclerPlugin(Context context,RecyclerView recyclerView, RecyclerView.Adapter adapter) {
+    public RecyclerPlugin(Context context, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
         mContext = context;
         this.recyclerView = recyclerView;
         this.adapter = adapter;
@@ -84,25 +84,24 @@ public class RecyclerPlugin {
 
     public RecyclerPlugin createBannerHeader(LayoutInflater inflater, List<Integer> localImages) {
         /**
-        headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
+         headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
 
-        header = inflater.inflate(R.layout.header_banner, null);
-        ConvenientBanner banner = (ConvenientBanner) header.findViewById(R.id.convenientBanner);
-        banner.setPages(
-                new CBViewHolderCreator<LocalImageHolderView>() {
-                    @Override
-                    public LocalImageHolderView createHolder() {
-                        return new LocalImageHolderView();
-                    }
-                }, localImages)
-                //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-                .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})
-                //设置指示器的方向
-                .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
-                .setScrollDuration(2000);
+         header = inflater.inflate(R.layout.header_banner, null);
+         ConvenientBanner banner = (ConvenientBanner) header.findViewById(R.id.convenientBanner);
+         banner.setPages(
+         new CBViewHolderCreator<LocalImageHolderView>() {
+        @Override public LocalImageHolderView createHolder() {
+        return new LocalImageHolderView();
+        }
+        }, localImages)
+         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
+         .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})
+         //设置指示器的方向
+         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
+         .setScrollDuration(2000);
 
-        headerAndFooterAdapter.addHeaderView(header);
-        lastAdapter = headerAndFooterAdapter;**/
+         headerAndFooterAdapter.addHeaderView(header);
+         lastAdapter = headerAndFooterAdapter;**/
         headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
 
         header = inflater.inflate(R.layout.header_banner, null);
@@ -119,7 +118,7 @@ public class RecyclerPlugin {
         for (Integer localImage : localImages) {
             texts.add("提示文案");
         }
-        banner.setData(localImages,texts);
+        banner.setData(localImages, texts);
 
         // 初始化ListView
         headerAndFooterAdapter.addHeaderView(header);
@@ -128,7 +127,7 @@ public class RecyclerPlugin {
     }
 
     public RecyclerPlugin addHeader(View view) {
-        if(headerAndFooterAdapter == null)
+        if (headerAndFooterAdapter == null)
             headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
         headerAndFooterAdapter.addHeaderView(view);
         lastAdapter = headerAndFooterAdapter;
@@ -157,11 +156,9 @@ public class RecyclerPlugin {
         if (headerAndFooterAdapter != null) {
             loadMoreAdapter = new LoadMoreAdapter(headerAndFooterAdapter);
             footer = inflater.inflate(R.layout.default_loading, null);
-//            loadMoreAdapter.setLoadMoreView(R.layout.default_loading);
             loadMoreAdapter.setLoadMoreView(footer);
             loadMoreAdapter.setOnLoadMoreListener(listener);
 
-//            recyclerView.setAdapter(loadMoreAdapter);
             lastAdapter = loadMoreAdapter;
         } else {
             loadMoreAdapter = new LoadMoreAdapter(adapter);
@@ -189,7 +186,8 @@ public class RecyclerPlugin {
             footer = inflater.inflate(R.layout.default_loading, null);
             View spaceLine = footer.findViewById(R.id.footer_divider);
             loadMoreAdapter.setLoadMoreView(R.layout.default_loading);
-            loadMoreAdapter.setOnLoadMoreListener(listener);
+            if (initVisible)
+                loadMoreAdapter.setOnLoadMoreListener(listener);
             lastAdapter = loadMoreAdapter;
         }
         return this;
