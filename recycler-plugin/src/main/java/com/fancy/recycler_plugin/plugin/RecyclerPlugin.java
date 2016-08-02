@@ -1,34 +1,25 @@
-package com.fancy.recycler_plugin.utils;
+package com.fancy.recycler_plugin.plugin;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bigkoo.convenientbanner.ConvenientBanner;
-import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
-import com.bumptech.glide.Glide;
 import com.fancy.recycler_plugin.R;
 import com.fancy.recycler_plugin.adapter.HeaderAndFooterAdapter;
 import com.fancy.recycler_plugin.adapter.LoadMoreAdapter;
-import com.fancy.recycler_plugin.view.HeaderFragment;
+import com.fancy.recycler_plugin.swipe.SwipeLayout;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.xml.transform.Transformer;
 
 import cn.bingoogolapple.bgabanner.BGABanner;
 
@@ -152,6 +143,34 @@ public class RecyclerPlugin {
         return this;
     }
 
+    public RecyclerPlugin addSwipe(SwipeLayout swipeLayout) {
+        SwipeLayout.addSwipeView(swipeLayout);
+        if (refresh != null) {
+            swipeLayout.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_MOVE:
+                            refresh.setEnabled(false);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL:
+                            refresh.setEnabled(true);
+                            break;
+                    }
+                    return false;
+                }
+            });
+        }
+
+        return this;
+    }
+
+    public RecyclerPlugin deleteSwipe(SwipeLayout swipeLayout) {
+        SwipeLayout.removeSwipeView(swipeLayout);
+        return this;
+    }
+
     public RecyclerPlugin createAddMore(LayoutInflater inflater, final LoadMoreAdapter.OnLoadMoreListener listener) {
         if (headerAndFooterAdapter != null) {
             loadMoreAdapter = new LoadMoreAdapter(headerAndFooterAdapter);
@@ -214,12 +233,7 @@ public class RecyclerPlugin {
         if (loadMoreAdapter != null) {
             if (visible) {
                 hasFooter = true;
-                /*if (footer != null) {
-                    loadMoreAdapter.setLoadMoreVisible(true);
-                } else {
-                    loadMoreAdapter.setLoadMoreView(footer);
-                    loadMoreAdapter.notifyDataSetChanged();
-                }*/
+
                 loadMoreAdapter.setLoadMoreView(footer);
                 loadMoreAdapter.setLoadMoreVisible(true);
                 loadMoreAdapter.notifyDataSetChanged();

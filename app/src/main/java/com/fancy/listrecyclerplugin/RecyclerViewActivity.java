@@ -13,11 +13,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fancy.recycler_plugin.adapter.CommonAdapter;
 import com.fancy.recycler_plugin.adapter.LoadMoreAdapter;
-import com.fancy.recycler_plugin.base.ViewHolder;
 import com.fancy.recycler_plugin.swipe.SwipeLayout;
-import com.fancy.recycler_plugin.utils.RecyclerPlugin;
+import com.fancy.recycler_plugin.plugin.RecyclerPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
     RecyclerView.Adapter mAdapter;
     RecyclerPlugin plugin;
     List<String> mDatas = new ArrayList<>();
-    private ArrayList<Integer> localImages = new ArrayList<Integer>();
+    ArrayList<Integer> localImages = new ArrayList<Integer>();
 
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -62,7 +60,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         plugin = new RecyclerPlugin(this,recycler, mAdapter);
 //        plugin.createViewpagerHeader(new ViewPagerHeader(this,getSupportFragmentManager(),new HeaderFragment()).create());
 
-//        plugin.createBannerHeader(getLayoutInflater(), localImages);
+        plugin.createHeader(getLayoutInflater(), R.layout.headview);
         plugin.createAddMore(getLayoutInflater() ,this);
 //        plugin.setAddMoreVisible(false);
 
