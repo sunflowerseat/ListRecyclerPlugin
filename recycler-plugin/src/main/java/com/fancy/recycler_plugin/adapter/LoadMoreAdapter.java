@@ -3,6 +3,7 @@ package com.fancy.recycler_plugin.adapter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +22,7 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     private RecyclerView.Adapter mInnerAdapter;
     private View mLoadMoreView;
     private int mLoadMoreLayoutId;
+    public boolean nowRequest = false;
 
     public LoadMoreAdapter(RecyclerView.Adapter adapter)
     {
@@ -150,7 +152,11 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void addData() {
-        mOnLoadMoreListener.onLoadMoreRequested();
+        if (!nowRequest) {
+            nowRequest = true;
+            Log.d("LoadMoreAdapter", "onLoadMoreRequested");
+            mOnLoadMoreListener.onLoadMoreRequested();
+        }
     }
 
     public LoadMoreAdapter setLoadMoreView(View loadMoreView)

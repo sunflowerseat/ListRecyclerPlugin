@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,7 +68,6 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
 //
         recycler.setAdapter(plugin.getLastAdapter());
 
-
     }
 
     void initData() {
@@ -97,6 +97,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                 {
                     addData();
                     mAdapter.notifyDataSetChanged();
+                    plugin.setNowRequest(false);
                 }
             }, 3000);
     }
@@ -108,7 +109,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
             MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                    RecyclerViewActivity.this).inflate(R.layout.item_list, parent,
+                    RecyclerViewActivity.this).inflate(R.layout.item_recycler, parent,
                     false));
             return holder;
         }
@@ -125,14 +126,14 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                 }
             });
             /** 添加代码 */
-            SwipeLayout.addSwipeView(holder.swipeLayout);
+            plugin.addSwipe(holder.swipeLayout);
             holder.menu.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mDatas.remove(position);
                     mAdapter.notifyDataSetChanged();
                     /** 添加代码 */
-                    SwipeLayout.removeSwipeView(holder.swipeLayout);
+                    plugin.deleteSwipe(holder.swipeLayout);
                 }
             });
 

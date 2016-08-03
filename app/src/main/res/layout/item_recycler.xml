@@ -4,7 +4,7 @@
                 android:layout_height="54dp"
     android:id="@+id/rl_item"
     >
-    <com.fancy.plugin_lib.swipe.SwipeLayout
+    <com.fancy.recycler_plugin.swipe.SwipeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/swipe">
@@ -25,6 +25,6 @@
             android:id="@+id/swipemenu"
             />
 
-    </com.fancy.plugin_lib.swipe.SwipeLayout>
+    </com.fancy.recycler_plugin.swipe.SwipeLayout>
 
 </RelativeLayout>

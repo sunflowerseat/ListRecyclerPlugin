@@ -125,6 +125,10 @@ public class RecyclerPlugin {
         return this;
     }
 
+    public void setNowRequest(boolean nowRequest) {
+        loadMoreAdapter.nowRequest = nowRequest;
+    }
+
     public RecyclerPlugin createHeader(View v) {
         headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
         header = v;

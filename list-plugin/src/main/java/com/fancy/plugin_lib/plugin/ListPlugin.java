@@ -34,6 +34,7 @@ public class ListPlugin {
     public ListView listView;
     public BaseAdapter adapter;
     boolean hasFooter = true;
+    public boolean nowRequest = false;
 
     public ListPlugin(Context context, ListView listView, BaseAdapter adapter) {
         mContext = context;
@@ -116,8 +117,11 @@ public class ListPlugin {
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (view.getLastVisiblePosition() == view.getCount()) {
-                    listener.onLoadMore();
+                if (view.getLastVisiblePosition() == view.getCount()-1) {
+                    if (!nowRequest) {
+                        nowRequest = true;
+                        listener.onLoadMore();
+                    }
                 }
             }
 
@@ -126,6 +130,8 @@ public class ListPlugin {
 
             }
         });
+
+
         return this;
     }
 
@@ -134,7 +140,13 @@ public class ListPlugin {
     }
 
     public void setAddMoreVisible(boolean visible) {
-
+        if (footer != null) {
+            if (visible) {
+                listView.addFooterView(footer);
+            } else {
+                listView.removeFooterView(footer);
+            }
+        }
     }
 
     public boolean getHasFooter() {
