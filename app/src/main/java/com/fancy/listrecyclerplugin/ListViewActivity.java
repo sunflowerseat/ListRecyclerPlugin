@@ -53,9 +53,11 @@ public class ListViewActivity extends AppCompatActivity implements LoadMoreListe
 
         };
 
+        /** 添加代码 创建一个listPlugin*/
         plugin = new ListPlugin(this,listview, mAdapter);
-
+        /** 添加代码 创建Header*/
         plugin.createHeader(getLayoutInflater(), R.layout.headview);
+        /** 添加代码 创建加载更多视图*/
         plugin.createAddMore(getLayoutInflater() ,this);
 
         listview.setAdapter(mAdapter);

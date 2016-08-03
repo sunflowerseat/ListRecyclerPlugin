@@ -57,10 +57,13 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
 
 
 
-
+        /** 添加代码 创建一个RecylerPlugin*/
         plugin = new RecyclerPlugin(this,recycler, mAdapter);
+        /** 添加代码 创建Header*/
         plugin.createHeader(getLayoutInflater(), R.layout.headview);
+        /** 添加代码 创建加载更多视图*/
         plugin.createAddMore(getLayoutInflater() ,this);
+        /**设置加载更多视图不可见 当数据不足一屏时，可调用该方法*/
 //        plugin.setAddMoreVisible(false);
 
         recycler.setAdapter(plugin.getLastAdapter());
