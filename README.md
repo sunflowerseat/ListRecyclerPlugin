@@ -15,6 +15,7 @@ plugin.createHeader(getLayoutInflater(),R.layout.headview);
 plugin.createAddMore(getLayoutInflater() ,this);
 //把最终包装好的Adapter设置到RecyclerView中
 recycler.setAdapter(plugin.getLastAdapter());
+
 ```
 就这样简单四步就完成了添加广告位和底部加载更多的功能，无需改动任何的布局文件。
 是不是非常简单。如果有类似的list，但不需要这些功能的时候，只需要把和plugin相关的所有代码删除即可。
