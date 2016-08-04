@@ -6,9 +6,9 @@ listview的也写了，但不知道意义大不大，感觉没什么用，listvi
 经过两个星期的努力，终于把这个插件初步封装完毕。对于这个库的封装过程，可以参考我的博客：http://blog.csdn.net/Fancy_xty/article/details/51958087
 
 效果图如下：
-![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/header.png "Title" )
+![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/header.png =100x50"Title" )
 
-![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/swipe_loadmore.png "Title")
+![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/swipe_loadmore.png=100x50 "Title")
 
 现在的使用方法是这样的。
 ```
