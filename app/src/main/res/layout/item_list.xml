@@ -16,14 +16,21 @@
             android:textSize="18sp"
             android:gravity="center_vertical"
             android:id="@+id/id_item_list_title"/>
-        <TextView
+        <RelativeLayout
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:background="#ff0000"
-            android:text="delete"
-            android:textColor="#ffffff"
+            android:background="#E8402D"
             android:id="@+id/swipemenu"
-            />
+            >
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/delete"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+
 
     </com.fancy.plugin_lib.swipe.SwipeLayout>
 

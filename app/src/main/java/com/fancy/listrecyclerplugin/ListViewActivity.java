@@ -61,6 +61,11 @@ public class ListViewActivity extends AppCompatActivity implements LoadMoreListe
         plugin.createAddMore(getLayoutInflater() ,this);
 
         listview.setAdapter(mAdapter);
+
+        String ss = null;
+        if (ss != null) {
+
+        }
     }
 
 

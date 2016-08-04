@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by fanrunqi on 2016/6/26.
+ * Created by sunflowerseat on 2016/8/4.
  */
 public class SwipeLayout extends LinearLayout {
 

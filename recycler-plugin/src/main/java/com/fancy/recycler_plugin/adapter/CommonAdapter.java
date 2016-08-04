@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Created by sunflowerseat on 16/7/19.
- * 重新对RecyclerView.Adapter<ViewHolder>进行封装，但用法与原先几乎一致
+ * 重新对RecyclerView.ViewHolder进行封装，但用法与原先几乎一致
  */
 public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder>
 {

@@ -19,8 +19,9 @@
         <TextView
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:background="#ff0000"
-            android:text="delete"
+            android:background="#E8402D"
+            android:text="删除"
+            android:gravity="center"
             android:textColor="#ffffff"
             android:id="@+id/swipemenu"
             />
