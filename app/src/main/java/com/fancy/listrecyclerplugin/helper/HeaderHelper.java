@@ -14,7 +14,7 @@ import cn.bingoogolapple.bgabanner.BGABanner;
 /**
  * Created by sunflowerseat on 2016/8/5.
  */
-public class HeaderHelper {
+public class HeaderHelper{
 
     public static View createBannerHeader(LayoutInflater inflater, List<Integer> localImages) {
 
