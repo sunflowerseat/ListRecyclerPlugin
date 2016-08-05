@@ -4,10 +4,15 @@
 listview的也写了，但不知道意义大不大，感觉没什么用，listview本身就有addHeader和Footer的方法
 
 经过两个星期的努力，终于把这个插件初步封装完毕。对于这个库的封装过程，可以参考我的博客：http://blog.csdn.net/Fancy_xty/article/details/51958087
+
 已上传到jcenter，recyclerview的依赖方式
+
 `compile 'com.fancy.library:recyclerplugin:1.0.0'`
+
 listview的依赖方式
+
 `compile 'com.fancy.library:listplugin:1.0.0'`
+
 
 效果图如下：
 
