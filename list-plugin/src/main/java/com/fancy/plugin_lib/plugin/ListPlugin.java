@@ -1,34 +1,23 @@
 package com.fancy.plugin_lib.plugin;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.fancy.plugin_lib.R;
 import com.fancy.plugin_lib.listener.LoadMoreListener;
 import com.fancy.plugin_lib.swipe.SwipeLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.bingoogolapple.bgabanner.BGABanner;
-
 /**
  * Created by sunflowerseat on 2016/7/19.
  */
 public class ListPlugin {
     private Context mContext;
-    public SwipeRefreshLayout refresh;
+    public View refresh;
     public View footer;
     public View header;
     public ListView listView;
@@ -42,16 +31,11 @@ public class ListPlugin {
         this.adapter = adapter;
     }
 
-    public ListPlugin createRefresh(SwipeRefreshLayout v) {
+    public ListPlugin createRefresh(View v) {
         refresh = v;
         return this;
     }
 
-
-    public ListPlugin createViewpagerHeader(FragmentManager manager, final Fragment... fragments) {
-
-        return this;
-    }
 
     public ListPlugin createHeader(LayoutInflater inflater, int resid) {
         header = inflater.inflate(resid, null);
@@ -59,27 +43,7 @@ public class ListPlugin {
         return this;
     }
 
-    public ListPlugin createBannerHeader(LayoutInflater inflater, List<Integer> localImages) {
 
-        header = inflater.inflate(R.layout.header_banner, null);
-        BGABanner banner = (BGABanner) header.findViewById(R.id.banner);
-        banner.setAdapter(new BGABanner.Adapter() {
-            @Override
-            public void fillBannerItem(BGABanner banner, View view, Object model, int position) {
-//                Glide.with(banner.getContext()).load(model).dontAnimate().thumbnail(0.1f).into((ImageView) view);
-                ImageView imageView = (ImageView) view;
-                imageView.setImageResource((Integer) model);
-            }
-        });
-        List<String> texts = new ArrayList<>();
-        for (Integer localImage : localImages) {
-            texts.add("提示文案");
-        }
-        banner.setData(localImages, texts);
-        header = banner;
-        listView.addHeaderView(header);
-        return this;
-    }
 
     public ListPlugin addSwipe(SwipeLayout swipeLayout) {
         SwipeLayout.addSwipeView(swipeLayout);

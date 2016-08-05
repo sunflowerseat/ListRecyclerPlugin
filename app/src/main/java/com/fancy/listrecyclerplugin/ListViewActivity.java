@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ListView;
 
-import com.fancy.listrecyclerplugin.common.CommonAdapter;
-import com.fancy.listrecyclerplugin.common.ViewHolder;
+import com.fancy.listrecyclerplugin.listadapter.CommonAdapter;
+import com.fancy.listrecyclerplugin.listadapter.ViewHolder;
 import com.fancy.plugin_lib.listener.LoadMoreListener;
 import com.fancy.plugin_lib.plugin.ListPlugin;
 import com.fancy.plugin_lib.swipe.SwipeLayout;

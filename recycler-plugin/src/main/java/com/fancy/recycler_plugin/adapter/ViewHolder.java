@@ -1,4 +1,4 @@
-package com.fancy.recycler_plugin.base;
+package com.fancy.recycler_plugin.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

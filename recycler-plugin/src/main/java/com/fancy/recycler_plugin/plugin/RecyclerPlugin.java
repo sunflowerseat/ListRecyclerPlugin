@@ -12,16 +12,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.bigkoo.convenientbanner.holder.Holder;
 import com.fancy.recycler_plugin.R;
 import com.fancy.recycler_plugin.adapter.HeaderAndFooterAdapter;
 import com.fancy.recycler_plugin.adapter.LoadMoreAdapter;
 import com.fancy.recycler_plugin.swipe.SwipeLayout;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.bingoogolapple.bgabanner.BGABanner;
 
 /**
  * Created by sunflowerseat on 2016/7/19.
@@ -73,49 +67,7 @@ public class RecyclerPlugin {
         return this;
     }
 
-    public RecyclerPlugin createBannerHeader(LayoutInflater inflater, List<Integer> localImages) {
-        /**
-         headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
 
-         header = inflater.inflate(R.layout.header_banner, null);
-         ConvenientBanner banner = (ConvenientBanner) header.findViewById(R.id.convenientBanner);
-         banner.setPages(
-         new CBViewHolderCreator<LocalImageHolderView>() {
-        @Override public LocalImageHolderView createHolder() {
-        return new LocalImageHolderView();
-        }
-        }, localImages)
-         //设置两个点图片作为翻页指示器，不设置则没有指示器，可以根据自己需求自行配合自己的指示器,不需要圆点指示器可用不设
-         .setPageIndicator(new int[]{R.drawable.ic_page_indicator, R.drawable.ic_page_indicator_focused})
-         //设置指示器的方向
-         .setPageIndicatorAlign(ConvenientBanner.PageIndicatorAlign.ALIGN_PARENT_RIGHT)
-         .setScrollDuration(2000);
-
-         headerAndFooterAdapter.addHeaderView(header);
-         lastAdapter = headerAndFooterAdapter;**/
-        headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
-
-        header = inflater.inflate(R.layout.header_banner, null);
-        BGABanner banner = (BGABanner) header.findViewById(R.id.banner);
-        banner.setAdapter(new BGABanner.Adapter() {
-            @Override
-            public void fillBannerItem(BGABanner banner, View view, Object model, int position) {
-//                Glide.with(banner.getContext()).load(model).dontAnimate().thumbnail(0.1f).into((ImageView) view);
-                ImageView imageView = (ImageView) view;
-                imageView.setImageResource((Integer) model);
-            }
-        });
-        List<String> texts = new ArrayList<>();
-        for (Integer localImage : localImages) {
-            texts.add("提示文案");
-        }
-        banner.setData(localImages, texts);
-
-        // 初始化ListView
-        headerAndFooterAdapter.addHeaderView(header);
-        lastAdapter = headerAndFooterAdapter;
-        return this;
-    }
 
     public RecyclerPlugin addHeader(View view) {
         if (headerAndFooterAdapter == null)
@@ -254,23 +206,5 @@ public class RecyclerPlugin {
         return hasFooter;
     }
 
-
-    class LocalImageHolderView implements Holder<Integer> {
-        private ImageView imageView;
-
-        @Override
-        public View createView(Context context) {
-            imageView = new ImageView(context);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            return imageView;
-        }
-
-        @Override
-        public void UpdateUI(Context context, final int position, Integer data) {
-
-            imageView.setImageResource(data);
-
-        }
-    }
 
 }

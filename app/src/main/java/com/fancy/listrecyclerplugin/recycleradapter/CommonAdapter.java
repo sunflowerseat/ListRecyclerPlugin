@@ -1,11 +1,9 @@
-package com.fancy.recycler_plugin.adapter;
+package com.fancy.listrecyclerplugin.recycleradapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-
-import com.fancy.recycler_plugin.base.ViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;

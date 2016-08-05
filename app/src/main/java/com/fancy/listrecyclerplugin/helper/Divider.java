@@ -1,4 +1,4 @@
-package com.fancy.listrecyclerplugin;
+package com.fancy.listrecyclerplugin.helper;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,6 +6,8 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.fancy.listrecyclerplugin.R;
 
 public class Divider extends RecyclerView.ItemDecoration {
     private Drawable mDividerDrawable;

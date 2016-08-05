@@ -1,4 +1,4 @@
-package com.fancy.recycler_plugin.base;
+package com.fancy.listrecyclerplugin.recycleradapter;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;

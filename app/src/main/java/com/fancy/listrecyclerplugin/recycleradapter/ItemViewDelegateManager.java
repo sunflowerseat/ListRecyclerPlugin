@@ -1,4 +1,4 @@
-package com.fancy.recycler_plugin.base;
+package com.fancy.listrecyclerplugin.recycleradapter;
 
 import android.support.v4.util.SparseArrayCompat;
 

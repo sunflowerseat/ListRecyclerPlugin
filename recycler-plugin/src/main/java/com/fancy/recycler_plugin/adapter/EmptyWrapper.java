@@ -5,8 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fancy.recycler_plugin.base.ViewHolder;
-import com.fancy.recycler_plugin.base.WrapperUtils;
 
 /**
  * Created by zhy on 16/6/23.

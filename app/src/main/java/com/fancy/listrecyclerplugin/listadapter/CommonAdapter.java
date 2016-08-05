@@ -1,4 +1,4 @@
-package com.fancy.listrecyclerplugin.common;
+package com.fancy.listrecyclerplugin.listadapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
