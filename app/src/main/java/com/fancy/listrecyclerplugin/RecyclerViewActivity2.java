@@ -19,7 +19,7 @@ import com.fancy.recycler_plugin.swipe.SwipeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreAdapter.OnLoadMoreListener{
+public class RecyclerViewActivity2 extends AppCompatActivity implements LoadMoreAdapter.OnLoadMoreListener{
     RecyclerView recycler;
     RecyclerView.Adapter mAdapter;
     RecyclerPlugin plugin;
@@ -33,7 +33,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         setContentView(R.layout.activity_recycler_view);
         initData();
         recycler = (RecyclerView) findViewById(R.id.recycler);
-        recycler.setLayoutManager(new GridLayoutManager(this, 1));
+        recycler.setLayoutManager(new GridLayoutManager(this, 2));
         recycler.addItemDecoration(new Divider(this));
         mAdapter = new MyAdapter();
 
@@ -56,18 +56,15 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 10; i++) {
+                for (int i = 0; i < 2; i++) {
                     mDatas.add("position:" + i);
                 }
 
                 localImages.add(R.drawable.i1);
                 localImages.add(R.drawable.i2);
                 localImages.add(R.drawable.i3);
-                mAdapter.notifyDataSetChanged();
-                plugin.setAddMoreVisible(true);
             }
         }, 1000);
-
     }
 
     void addData() {
@@ -88,10 +85,10 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                     addData();
                     mAdapter.notifyDataSetChanged();
                     plugin.setNowRequest(false);
-                    /*plugin.setAddMoreVisible(false);
-                    plugin.createAddMore(getLayoutInflater(), null, R.layout.default_loading);*/
+                    plugin.setAddMoreVisible(false);
+                    plugin.createAddMore(getLayoutInflater(), null, R.layout.default_loading);
                 }
-            }, 1000);
+            }, 3000);
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>
@@ -101,7 +98,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
             MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                    RecyclerViewActivity.this).inflate(R.layout.item_recycler, parent,
+                    RecyclerViewActivity2.this).inflate(R.layout.item_recycler, parent,
                     false));
             return holder;
         }

@@ -1,4 +1,4 @@
-package com.fancy.listrecyclerplugin.listadapter;
+package com.fancy.listrecyclerplugin.lv_common;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

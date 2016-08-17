@@ -1,6 +1,7 @@
 package com.fancy.recycler_plugin.plugin;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -146,6 +147,25 @@ public class RecyclerPlugin {
         return this;
     }
 
+    public RecyclerPlugin createAddMore(LayoutInflater inflater, final LoadMoreAdapter.OnLoadMoreListener listener,@LayoutRes int resId) {
+        if (headerAndFooterAdapter != null) {
+            loadMoreAdapter = new LoadMoreAdapter(headerAndFooterAdapter);
+            footer = inflater.inflate(resId, null);
+            loadMoreAdapter.setLoadMoreView(footer);
+            loadMoreAdapter.setOnLoadMoreListener(listener);
+
+            lastAdapter = loadMoreAdapter;
+        } else {
+            loadMoreAdapter = new LoadMoreAdapter(adapter);
+            footer = inflater.inflate(resId, null);
+            loadMoreAdapter.setLoadMoreView(footer);
+            loadMoreAdapter.setOnLoadMoreListener(listener);
+            lastAdapter = loadMoreAdapter;
+        }
+        return this;
+    }
+
+
     //initVisible表示 是否显示addMore视图
     public RecyclerPlugin createAddMore(LayoutInflater inflater, boolean initVisible, final LoadMoreAdapter.OnLoadMoreListener listener) {
         if (headerAndFooterAdapter != null) {
@@ -193,8 +213,7 @@ public class RecyclerPlugin {
                 loadMoreAdapter.setLoadMoreView(footer);
                 loadMoreAdapter.setLoadMoreVisible(true);
                 loadMoreAdapter.notifyDataSetChanged();
-                loadMoreAdapter.addData();
-
+//                loadMoreAdapter.addData();
             } else {
                 hasFooter = false;
                 loadMoreAdapter.removeLoadMoreView();

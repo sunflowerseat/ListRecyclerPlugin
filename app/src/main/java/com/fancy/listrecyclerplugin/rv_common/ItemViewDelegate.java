@@ -1,4 +1,4 @@
-package com.fancy.listrecyclerplugin.recycleradapter;
+package com.fancy.listrecyclerplugin.rv_common;
 
 
 /**

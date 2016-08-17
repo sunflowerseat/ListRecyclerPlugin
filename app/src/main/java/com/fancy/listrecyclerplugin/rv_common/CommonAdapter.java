@@ -1,4 +1,4 @@
-package com.fancy.listrecyclerplugin.recycleradapter;
+package com.fancy.listrecyclerplugin.rv_common;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

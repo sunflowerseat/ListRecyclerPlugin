@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -9,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
     }
     buildTypes {
         release {
@@ -27,17 +26,4 @@ dependencies {
 
 }
 
-task javadoc(type: Javadoc) {
-    options.encoding = "utf-8"
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
 
-publish {
-    userOrg = 'sunflowerseat'//bintray.com用户名
-    groupId = 'com.fancy.library'//jcenter上的路径,要保持与之前导入到bintary中的package名一致
-    artifactId = 'recyclerplugin'//项目名称
-    publishVersion = '1.0.0'//版本号
-    desc = 'this is a recyclerview helper library.'//描述
-    website = 'https://github.com/sunflowerseat/ListRecyclerPlugin'//填写之前上传到github后的地址
-}
