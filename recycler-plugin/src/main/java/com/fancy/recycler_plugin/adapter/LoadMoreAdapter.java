@@ -4,6 +4,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,11 +16,14 @@ import android.view.ViewGroup;
 public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     public static final int ITEM_TYPE_LOAD_MORE = Integer.MAX_VALUE - 2;
+    public static final int ITEM_TYPE_NO_MORE = Integer.MAX_VALUE - 3;
 
     private RecyclerView.Adapter mInnerAdapter;
     private View mLoadMoreView;
     private int mLoadMoreLayoutId;
+    private View mNoMoreView;
     public boolean nowRequest = false;
+    public boolean hasMoreData = true;
 
     public LoadMoreAdapter(RecyclerView.Adapter adapter)
     {
@@ -42,9 +46,19 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     {
         if (isShowLoadMore(position))
         {
-            return ITEM_TYPE_LOAD_MORE;
+            if (hasMoreData) {
+                return ITEM_TYPE_LOAD_MORE;
+            } else {
+                return ITEM_TYPE_NO_MORE;
+            }
+
         }
+
         return mInnerAdapter.getItemViewType(position);
+    }
+
+    public void setHasMoreData(boolean flag) {
+        hasMoreData = flag;
     }
 
     @Override
@@ -52,6 +66,7 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     {
         if (viewType == ITEM_TYPE_LOAD_MORE)
         {
+            Log.d("LoadMoreAdapter", "onCreateViewHolder");
             ViewHolder holder;
             if (mLoadMoreView != null)
             {
@@ -61,6 +76,15 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
                 holder = ViewHolder.createViewHolder(parent.getContext(), parent, mLoadMoreLayoutId);
             }
             return holder;
+        }
+
+        if (viewType == ITEM_TYPE_NO_MORE) {
+            ViewHolder holder;
+            if (mLoadMoreView != null)
+            {
+                holder = ViewHolder.createViewHolder(parent.getContext(), mNoMoreView);
+                return holder;
+            }
         }
         return mInnerAdapter.onCreateViewHolder(parent, viewType);
     }
@@ -72,7 +96,7 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
         {
             if (mOnLoadMoreListener != null)
             {
-                mOnLoadMoreListener.onLoadMoreRequested();
+                addData();
             }
             return;
         }
@@ -141,17 +165,13 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     public LoadMoreAdapter setOnLoadMoreListener(OnLoadMoreListener loadMoreListener)
     {
-        if (loadMoreListener != null)
-        {
-            mOnLoadMoreListener = loadMoreListener;
-        }
+        mOnLoadMoreListener = loadMoreListener;
         return this;
     }
 
     public void addData() {
         if (!nowRequest) {
             nowRequest = true;
-            Log.d("LoadMoreAdapter", "onLoadMoreRequested");
             mOnLoadMoreListener.onLoadMoreRequested();
         }
     }
@@ -168,15 +188,38 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
         return this;
     }
 
+    public LoadMoreAdapter setLoadMoreView(LayoutInflater inflater,int layoutId)
+    {
+//        mLoadMoreLayoutId = layoutId;
+        Log.d("LoadMoreAdapter", "setLoadMoreView");
+        mLoadMoreView = inflater.inflate(layoutId, null);
+        return this;
+    }
+
+    public LoadMoreAdapter setNoMoreView(LayoutInflater inflater,int layoutId)
+    {
+//        mLoadMoreLayoutId = layoutId;
+        Log.d("LoadMoreAdapter", "setLoadMoreView");
+        mNoMoreView = inflater.inflate(layoutId, null);
+        return this;
+    }
+
     public void removeLoadMoreView() {
-//        this.remo
-        mLoadMoreView.setVisibility(View.GONE);
-        mLoadMoreView = null;
+        if (mLoadMoreView != null) {
+            mLoadMoreView.setVisibility(View.GONE);
+            mLoadMoreLayoutId = 0;
+            mLoadMoreView = null;
+        }
         notifyDataSetChanged();
     }
 
     public void setLoadMoreVisible(boolean flag) {
-        mLoadMoreView.setVisibility((flag) ? View.VISIBLE : View.GONE);
+        if(mLoadMoreView != null)
+            mLoadMoreView.setVisibility((flag) ? View.VISIBLE : View.GONE);
+    }
+
+    public View getmLoadMoreView() {
+        return mLoadMoreView;
     }
 
 

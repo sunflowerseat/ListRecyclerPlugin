@@ -20,6 +20,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:text="RecyclerView 数据不足一屏"
+        android:id="@+id/btn_recyclerview2"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:text="ListView"
         android:id="@+id/btn_listview"
         />

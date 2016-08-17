@@ -12,6 +12,10 @@
             android:label="RecyclerViewActivity">
 
         </activity>
+        <activity android:name=".RecyclerViewActivity2"
+            android:label="RecyclerViewActivity">
+
+        </activity>
         <activity android:name=".ListViewActivity" />
         <activity android:name=".MainActivity"
             android:label="MainActivity">

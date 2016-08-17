@@ -5,9 +5,11 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +27,9 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
     RecyclerPlugin plugin;
     List<String> mDatas = new ArrayList<>();
     ArrayList<Integer> localImages = new ArrayList<Integer>();
+    RelativeLayout rl_progressbar;
+
+    int recylerTime = 0;
 
 
     @Override
@@ -33,6 +38,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         setContentView(R.layout.activity_recycler_view);
         initData();
         recycler = (RecyclerView) findViewById(R.id.recycler);
+        rl_progressbar = (RelativeLayout) findViewById(R.id.rl_progressbar);
         recycler.setLayoutManager(new GridLayoutManager(this, 1));
         recycler.addItemDecoration(new Divider(this));
         mAdapter = new MyAdapter();
@@ -40,11 +46,12 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
 
 
         /** 添加代码 创建一个RecylerPlugin*/
-        plugin = new RecyclerPlugin(this,recycler, mAdapter);
+        plugin = new RecyclerPlugin(getLayoutInflater(),this,recycler, mAdapter);
         /** 添加代码 创建Header*/
-        plugin.createHeader(getLayoutInflater(), R.layout.headview);
+        plugin.createHeader(R.layout.headview);
         /** 添加代码 创建加载更多视图*/
-        plugin.createAddMore(getLayoutInflater(),false ,this);
+        plugin.createAddMore(false ,null);
+        plugin.setNoMoreView(R.layout.nomore_loading);
         /**设置加载更多视图不可见 当数据不足一屏时，可调用该方法*/
 //        plugin.setAddMoreVisible(false);
 
@@ -56,24 +63,40 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < 10; i++) {
+                int dataLength = 10;
+                for (int i = 0; i < dataLength; i++) {
                     mDatas.add("position:" + i);
                 }
 
                 localImages.add(R.drawable.i1);
                 localImages.add(R.drawable.i2);
                 localImages.add(R.drawable.i3);
+                rl_progressbar.setVisibility(View.GONE);
                 mAdapter.notifyDataSetChanged();
-                plugin.setAddMoreVisible(true);
+                if (dataLength < 10) {
+                    //初始化数据小于10条
+                    plugin.setAddMoreVisible(true,null, R.layout.nomore_loading);
+                } else {
+                    plugin.setAddMoreVisible(true,RecyclerViewActivity.this, R.layout.default_loading);
+                }
             }
         }, 1000);
 
     }
 
-    void addData() {
-        for (int i = 0; i < 10; i++) {
-            mDatas.add("Add-position:"+i);
+    int addData() {
+        if (++recylerTime < 2) {
+            for (int i = 0; i < 10; i++) {
+                mDatas.add("Add-position:" + i);
+            }
+            return 10;
+        } else {
+            for (int i = 0; i < 4; i++) {
+                mDatas.add("Last-position:" + i);
+            }
+            return 4;
         }
+
     }
 
 
@@ -85,11 +108,21 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                 @Override
                 public void run()
                 {
-                    addData();
-                    mAdapter.notifyDataSetChanged();
-                    plugin.setNowRequest(false);
-                    /*plugin.setAddMoreVisible(false);
-                    plugin.createAddMore(getLayoutInflater(), null, R.layout.default_loading);*/
+                    int addDataLength = addData();
+                    if (addDataLength < 10) {
+                        mAdapter.notifyDataSetChanged();
+                        Log.d("RecyclerViewActivity", "addDataLength < 10");
+                        plugin.setNowRequest(false);
+                        plugin.loadMoreAdapter.setOnLoadMoreListener(null);
+//                        plugin.setAddMoreVisible(true,null, R.layout.nomore_loading);
+//                        plugin.setAddMoreVisible(false);
+//                        Toast.makeText(RecyclerViewActivity.this, "无更多数据", Toast.LENGTH_SHORT).show();
+                        plugin.loadMoreAdapter.hasMoreData = false;
+                    } else {
+                        mAdapter.notifyDataSetChanged();
+                        plugin.setNowRequest(false);
+                    }
+
                 }
             }, 1000);
     }
@@ -110,7 +143,6 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         public void onBindViewHolder(final MyViewHolder holder, final int position)
         {
             holder.tv.setText(mDatas.get(position) + ":" +position);
-//            if(position == 9) plugin.setAddMoreVisible(true);
             holder.tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

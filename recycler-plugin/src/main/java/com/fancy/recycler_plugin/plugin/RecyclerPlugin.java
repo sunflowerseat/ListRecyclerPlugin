@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,10 +34,13 @@ public class RecyclerPlugin {
     public RecyclerView.Adapter lastAdapter;
     boolean hasFooter = true;
 
-    public RecyclerPlugin(Context context, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
+    public LayoutInflater inflater;
+
+    public RecyclerPlugin(LayoutInflater inflater,Context context, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
         mContext = context;
         this.recyclerView = recyclerView;
         this.adapter = adapter;
+        this.inflater = inflater;
     }
 
     public RecyclerPlugin createRefresh(SwipeRefreshLayout v) {
@@ -91,7 +95,13 @@ public class RecyclerPlugin {
         return this;
     }
 
-    public RecyclerPlugin createHeader(LayoutInflater inflater, int resid) {
+    public void setHasMoreData(boolean flag) {
+        if (loadMoreAdapter != null) {
+            loadMoreAdapter.setHasMoreData(flag);
+        }
+    }
+
+    public RecyclerPlugin createHeader(int resid) {
         headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
         header = inflater.inflate(resid, null);
         headerAndFooterAdapter.addHeaderView(header);
@@ -128,7 +138,7 @@ public class RecyclerPlugin {
         return this;
     }
 
-    public RecyclerPlugin createAddMore(LayoutInflater inflater, final LoadMoreAdapter.OnLoadMoreListener listener) {
+    public RecyclerPlugin createAddMore(final LoadMoreAdapter.OnLoadMoreListener listener) {
         if (headerAndFooterAdapter != null) {
             loadMoreAdapter = new LoadMoreAdapter(headerAndFooterAdapter);
             footer = inflater.inflate(R.layout.default_loading, null);
@@ -147,7 +157,7 @@ public class RecyclerPlugin {
         return this;
     }
 
-    public RecyclerPlugin createAddMore(LayoutInflater inflater, final LoadMoreAdapter.OnLoadMoreListener listener,@LayoutRes int resId) {
+    public RecyclerPlugin createAddMore(final LoadMoreAdapter.OnLoadMoreListener listener,@LayoutRes int resId) {
         if (headerAndFooterAdapter != null) {
             loadMoreAdapter = new LoadMoreAdapter(headerAndFooterAdapter);
             footer = inflater.inflate(resId, null);
@@ -167,22 +177,24 @@ public class RecyclerPlugin {
 
 
     //initVisible表示 是否显示addMore视图
-    public RecyclerPlugin createAddMore(LayoutInflater inflater, boolean initVisible, final LoadMoreAdapter.OnLoadMoreListener listener) {
+    public RecyclerPlugin createAddMore(boolean initVisible, final LoadMoreAdapter.OnLoadMoreListener listener) {
         if (headerAndFooterAdapter != null) {
             loadMoreAdapter = new LoadMoreAdapter(headerAndFooterAdapter);
-            footer = inflater.inflate(R.layout.default_loading, null);
-            if (initVisible)
+            if (initVisible) {
+                footer = inflater.inflate(R.layout.default_loading, null);
                 loadMoreAdapter.setLoadMoreView(footer);
-            loadMoreAdapter.setOnLoadMoreListener(listener);
+            }
 
+            loadMoreAdapter.setOnLoadMoreListener(listener);
             lastAdapter = loadMoreAdapter;
         } else {
             loadMoreAdapter = new LoadMoreAdapter(adapter);
             footer = inflater.inflate(R.layout.default_loading, null);
-            View spaceLine = footer.findViewById(R.id.footer_divider);
-            loadMoreAdapter.setLoadMoreView(R.layout.default_loading);
-            if (initVisible)
+            if (initVisible) {
+                loadMoreAdapter.setLoadMoreView(R.layout.default_loading);
                 loadMoreAdapter.setOnLoadMoreListener(listener);
+            }
+
             lastAdapter = loadMoreAdapter;
         }
         return this;
@@ -209,20 +221,48 @@ public class RecyclerPlugin {
         if (loadMoreAdapter != null) {
             if (visible) {
                 hasFooter = true;
-
                 loadMoreAdapter.setLoadMoreView(footer);
                 loadMoreAdapter.setLoadMoreVisible(true);
                 loadMoreAdapter.notifyDataSetChanged();
-//                loadMoreAdapter.addData();
             } else {
                 hasFooter = false;
+                Log.d("RecyclerPlugin", "haha"+loadMoreAdapter.getmLoadMoreView());
+                loadMoreAdapter.setLoadMoreVisible(false);
+                loadMoreAdapter.setLoadMoreView(null);
+                loadMoreAdapter.removeLoadMoreView();
+                loadMoreAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    public void setAddMoreVisible(boolean visible,final LoadMoreAdapter.OnLoadMoreListener listener,int resId) {
+        if (loadMoreAdapter != null) {
+            if (visible) {
+                Log.d("RecyclerPlugin", "setAddMoreVisible");
+                hasFooter = true;
+                footer = inflater.inflate(resId, null);
+                loadMoreAdapter.setLoadMoreView(footer);
+                loadMoreAdapter.setLoadMoreVisible(true);
+                loadMoreAdapter.setOnLoadMoreListener(listener);
+            } else {
+                hasFooter = false;
+                loadMoreAdapter.setLoadMoreVisible(false);
+                loadMoreAdapter.setLoadMoreView(null);
+                loadMoreAdapter.setOnLoadMoreListener(listener);
                 loadMoreAdapter.removeLoadMoreView();
             }
+            loadMoreAdapter.notifyDataSetChanged();
         }
     }
 
     public boolean getHasFooter() {
         return hasFooter;
+    }
+
+    public void setNoMoreView(@LayoutRes int resId) {
+        if (loadMoreAdapter != null) {
+            loadMoreAdapter.setNoMoreView(inflater, resId);
+        }
     }
 
 
