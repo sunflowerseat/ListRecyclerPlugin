@@ -92,7 +92,7 @@ if (dataLength < 10) {
         plugin.setAddMoreVisible(true,null, R.layout.default_loading);
         //设置无更多数据
         plugin.setHasMoreData(false);
-    } else {
+} else {
     plugin.setAddMoreVisible(true,RecyclerViewActivity.this, R.layout.default_loading);
 }
 ```
@@ -104,7 +104,7 @@ if (addDataLength < 10) {
         plugin.setNowRequest(false);
         plugin.loadMoreAdapter.setOnLoadMoreListener(null);
         plugin.setHasMoreData(false);
-    } else {
+} else {
     mAdapter.notifyDataSetChanged();
     plugin.setNowRequest(false);
 }
