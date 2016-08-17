@@ -5,6 +5,15 @@ listview的也写了，但不知道意义大不大，感觉没什么用，listvi
 
 经过两个星期的努力，终于把这个插件初步封装完毕。对于这个库的封装过程，可以参考我的博客：http://blog.csdn.net/Fancy_xty/article/details/51958087
 
+已上传到jcenter，recyclerview的依赖方式
+
+`compile 'com.fancy.library:recyclerplugin:1.0.1'`
+
+listview的依赖方式
+
+`compile 'com.fancy.library:listplugin:1.0.1'`
+
+
 效果图如下：
 
 ![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/header.png "Title" )
@@ -67,3 +76,18 @@ listview使用这个插件，用法基本一致，创建一个ListPlugin即可�
 保证在删除之后，所有的侧滑菜单都保持收起状态。
 
 下拉刷新现在还没有封装起来，不过也提供了管理，下拉刷新可以在listview或Recyclerview外层包裹SwipeRefreshLayout，然后把SwipeRefreshLayout传给RecyclerPlugin或者ListPlugin来进行管理，主要是处理侧滑和下拉刷新的冲突，还有广告位的滑动冲突。
+
+***注意事项***
+
+使用这个库adapter还是要自己写的，只是在你写的基础上进行一层包装，适用于adapter已经写好，但想添加header、footer和侧滑的情况。
+
+也适用于自己有对adapter的封装，不想改变自己的写法的程序员们
+
+或者想用其他的自定义的Recyclerview但是，自定义Recyclerview并没有上拉加载和侧滑功能，可以通过添加这个小插件达到添加这些功能的目的。
+
+
+创建上拉加载的时候需要传一个回调方法，里面执行的是footer显示的时候执行的方法，记得要在添加数据之后执行plugin.setNowRequest(false);
+否则下次不会再执行这个回调，这个是为了防止加载数据时不停上下滑动，重复触发回调的。
+
+
+有问题提issue，或者加群讨论：283272067
