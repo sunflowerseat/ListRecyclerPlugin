@@ -23,11 +23,11 @@ listview的依赖方式
 现在的使用方法是这样的。
 ```
 //创建一个RecyclerPlugin
-plugin = new RecyclerPlugin(this,recycler, mAdapter);
+plugin = new RecyclerPlugin(getLayoutInflater(),this,recycler, mAdapter);
 //创建广告位（提供多种方式）
-plugin.createHeader(getLayoutInflater(),R.layout.headview);
+plugin.createHeader(R.layout.headview);
 //创建底部加载更多视图  this是一个监听，当加载更多界面显示时的调用的方法  
-plugin.createAddMore(getLayoutInflater() ,this);
+plugin.setNoMoreView(R.layout.nomore_loading);
 //把最终包装好的Adapter设置到RecyclerView中
 recycler.setAdapter(plugin.getLastAdapter());
 
@@ -77,7 +77,41 @@ listview使用这个插件，用法基本一致，创建一个ListPlugin即可�
 
 下拉刷新现在还没有封装起来，不过也提供了管理，下拉刷新可以在listview或Recyclerview外层包裹SwipeRefreshLayout，然后把SwipeRefreshLayout传给RecyclerPlugin或者ListPlugin来进行管理，主要是处理侧滑和下拉刷新的冲突，还有广告位的滑动冲突。
 
-***注意事项***
+##增加功能
+支持设置没有更多数据时的布局。
+如初始数据数目不定，如初始数据 = 10条则表示还有更多数据，此时应显示加载更多的布局。小于10条则应显示没有更多数据布局。
+设置方法如下，因初始数据数目不定。初始化的时候设置显示为false，监听为null
+```
+plugin.createAddMore(false,null);
+//设置无数据时的布局 ， 如无该需求，忽略
+plugin.setNoMoreView(R.layout.nomore_loading);
+```
+当加载到初始数据时，根据数据的数目进行判断。
+```
+if (dataLength < 10) {
+        plugin.setAddMoreVisible(true,null, R.layout.default_loading);
+        //设置无更多数据
+        plugin.setHasMoreData(false);
+    } else {
+    plugin.setAddMoreVisible(true,RecyclerViewActivity.this, R.layout.default_loading);
+}
+```
+
+当加载到新数据时，根据加载数据的数量来判断，是显示 “加载更多” 布局，还是 “无更多数据” 布局
+```
+if (addDataLength < 10) {
+        mAdapter.notifyDataSetChanged();
+        plugin.setNowRequest(false);
+        plugin.loadMoreAdapter.setOnLoadMoreListener(null);
+        plugin.setHasMoreData(false);
+    } else {
+    mAdapter.notifyDataSetChanged();
+    plugin.setNowRequest(false);
+}
+```
+
+
+##注意事项
 
 使用这个库adapter还是要自己写的，只是在你写的基础上进行一层包装，适用于adapter已经写好，但想添加header、footer和侧滑的情况。
 

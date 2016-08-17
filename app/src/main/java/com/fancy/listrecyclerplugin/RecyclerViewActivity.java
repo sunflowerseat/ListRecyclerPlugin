@@ -50,7 +50,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         /** 添加代码 创建Header*/
         plugin.createHeader(R.layout.headview);
         /** 添加代码 创建加载更多视图*/
-        plugin.createAddMore(false ,null);
+        plugin.createAddMore(false,null);
         plugin.setNoMoreView(R.layout.nomore_loading);
         /**设置加载更多视图不可见 当数据不足一屏时，可调用该方法*/
 //        plugin.setAddMoreVisible(false);
@@ -63,7 +63,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                int dataLength = 10;
+                int dataLength = 2;
                 for (int i = 0; i < dataLength; i++) {
                     mDatas.add("position:" + i);
                 }
@@ -75,7 +75,8 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                 mAdapter.notifyDataSetChanged();
                 if (dataLength < 10) {
                     //初始化数据小于10条
-                    plugin.setAddMoreVisible(true,null, R.layout.nomore_loading);
+                    plugin.setAddMoreVisible(true,null, R.layout.default_loading);
+                    plugin.setHasMoreData(false);
                 } else {
                     plugin.setAddMoreVisible(true,RecyclerViewActivity.this, R.layout.default_loading);
                 }
@@ -111,13 +112,9 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                     int addDataLength = addData();
                     if (addDataLength < 10) {
                         mAdapter.notifyDataSetChanged();
-                        Log.d("RecyclerViewActivity", "addDataLength < 10");
                         plugin.setNowRequest(false);
                         plugin.loadMoreAdapter.setOnLoadMoreListener(null);
-//                        plugin.setAddMoreVisible(true,null, R.layout.nomore_loading);
-//                        plugin.setAddMoreVisible(false);
-//                        Toast.makeText(RecyclerViewActivity.this, "无更多数据", Toast.LENGTH_SHORT).show();
-                        plugin.loadMoreAdapter.hasMoreData = false;
+                        plugin.setHasMoreData(false);
                     } else {
                         mAdapter.notifyDataSetChanged();
                         plugin.setNowRequest(false);

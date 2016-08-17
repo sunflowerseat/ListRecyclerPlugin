@@ -36,7 +36,7 @@ public class RecyclerPlugin {
 
     public LayoutInflater inflater;
 
-    public RecyclerPlugin(LayoutInflater inflater,Context context, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
+    public RecyclerPlugin(LayoutInflater inflater, Context context, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
         mContext = context;
         this.recyclerView = recyclerView;
         this.adapter = adapter;
@@ -71,7 +71,6 @@ public class RecyclerPlugin {
 
         return this;
     }
-
 
 
     public RecyclerPlugin addHeader(View view) {
@@ -157,7 +156,7 @@ public class RecyclerPlugin {
         return this;
     }
 
-    public RecyclerPlugin createAddMore(final LoadMoreAdapter.OnLoadMoreListener listener,@LayoutRes int resId) {
+    public RecyclerPlugin createAddMore(final LoadMoreAdapter.OnLoadMoreListener listener, @LayoutRes int resId) {
         if (headerAndFooterAdapter != null) {
             loadMoreAdapter = new LoadMoreAdapter(headerAndFooterAdapter);
             footer = inflater.inflate(resId, null);
@@ -226,7 +225,7 @@ public class RecyclerPlugin {
                 loadMoreAdapter.notifyDataSetChanged();
             } else {
                 hasFooter = false;
-                Log.d("RecyclerPlugin", "haha"+loadMoreAdapter.getmLoadMoreView());
+                Log.d("RecyclerPlugin", "haha" + loadMoreAdapter.getmLoadMoreView());
                 loadMoreAdapter.setLoadMoreVisible(false);
                 loadMoreAdapter.setLoadMoreView(null);
                 loadMoreAdapter.removeLoadMoreView();
@@ -235,7 +234,7 @@ public class RecyclerPlugin {
         }
     }
 
-    public void setAddMoreVisible(boolean visible,final LoadMoreAdapter.OnLoadMoreListener listener,int resId) {
+    public void setAddMoreVisible(boolean visible, final LoadMoreAdapter.OnLoadMoreListener listener, int resId) {
         if (loadMoreAdapter != null) {
             if (visible) {
                 Log.d("RecyclerPlugin", "setAddMoreVisible");
@@ -265,5 +264,9 @@ public class RecyclerPlugin {
         }
     }
 
+    public void setOnLoadMoreListener(LoadMoreAdapter.OnLoadMoreListener l) {
+        if (loadMoreAdapter != null)
+            loadMoreAdapter.setOnLoadMoreListener(l);
+    }
 
 }
