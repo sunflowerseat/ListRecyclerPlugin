@@ -89,9 +89,9 @@ plugin.setNoMoreView(R.layout.nomore_loading);
 当加载到初始数据时，根据数据的数目进行判断。
 ```
 if (dataLength < 10) {
-        plugin.setAddMoreVisible(true,null, R.layout.default_loading);
-        //设置无更多数据
-        plugin.setHasMoreData(false);
+    plugin.setAddMoreVisible(true,null, R.layout.default_loading);
+    //设置无更多数据
+    plugin.setHasMoreData(false);
 } else {
     plugin.setAddMoreVisible(true,RecyclerViewActivity.this, R.layout.default_loading);
 }
@@ -100,10 +100,10 @@ if (dataLength < 10) {
 当加载到新数据时，根据加载数据的数量来判断，是显示 “加载更多” 布局，还是 “无更多数据” 布局
 ```
 if (addDataLength < 10) {
-        mAdapter.notifyDataSetChanged();
-        plugin.setNowRequest(false);
-        plugin.loadMoreAdapter.setOnLoadMoreListener(null);
-        plugin.setHasMoreData(false);
+    mAdapter.notifyDataSetChanged();
+    plugin.setNowRequest(false);
+    plugin.loadMoreAdapter.setOnLoadMoreListener(null);
+    plugin.setHasMoreData(false);
 } else {
     mAdapter.notifyDataSetChanged();
     plugin.setNowRequest(false);
