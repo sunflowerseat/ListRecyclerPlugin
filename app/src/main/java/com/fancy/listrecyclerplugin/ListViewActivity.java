@@ -62,10 +62,6 @@ public class ListViewActivity extends AppCompatActivity implements LoadMoreListe
 
         listview.setAdapter(mAdapter);
 
-        String ss = null;
-        if (ss != null) {
-
-        }
     }
 
 

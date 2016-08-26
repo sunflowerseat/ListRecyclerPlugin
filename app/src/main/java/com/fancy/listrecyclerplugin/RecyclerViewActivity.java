@@ -3,6 +3,7 @@ package com.fancy.listrecyclerplugin;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,7 +22,7 @@ import com.fancy.recycler_plugin.swipe.SwipeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreAdapter.OnLoadMoreListener{
+public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreAdapter.OnLoadMoreListener {
     RecyclerView recycler;
     RecyclerView.Adapter mAdapter;
     RecyclerPlugin plugin;
@@ -44,13 +45,12 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         mAdapter = new MyAdapter();
 
 
-
         /** 添加代码 创建一个RecylerPlugin*/
-        plugin = new RecyclerPlugin(getLayoutInflater(),this,recycler, mAdapter);
+        plugin = new RecyclerPlugin(getLayoutInflater(), this, recycler, mAdapter);
         /** 添加代码 创建Header*/
         plugin.createHeader(R.layout.headview);
         /** 添加代码 创建加载更多视图*/
-        plugin.createAddMore(false,null);
+        plugin.createAddMore(false, null);
         plugin.setNoMoreView(R.layout.nomore_loading);
         /**设置加载更多视图不可见 当数据不足一屏时，可调用该方法*/
 //        plugin.setAddMoreVisible(false);
@@ -63,7 +63,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                int dataLength = 2;
+                int dataLength = 10;
                 for (int i = 0; i < dataLength; i++) {
                     mDatas.add("position:" + i);
                 }
@@ -75,10 +75,10 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                 mAdapter.notifyDataSetChanged();
                 if (dataLength < 10) {
                     //初始化数据小于10条
-                    plugin.setAddMoreVisible(true,null, R.layout.default_loading);
+                    plugin.setAddMoreVisible(true, null, R.layout.default_loading);
                     plugin.setHasMoreData(false);
                 } else {
-                    plugin.setAddMoreVisible(true,RecyclerViewActivity.this, R.layout.default_loading);
+                    plugin.setAddMoreVisible(true, RecyclerViewActivity.this, R.layout.default_loading);
                 }
             }
         }, 1000);
@@ -103,12 +103,10 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
 
     @Override
     public void onLoadMoreRequested() {
-        if(plugin.getHasFooter())
-            new Handler().postDelayed(new Runnable()
-            {
+        if (plugin.getHasFooter())
+            new Handler().postDelayed(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     int addDataLength = addData();
                     if (addDataLength < 10) {
                         mAdapter.notifyDataSetChanged();
@@ -124,12 +122,10 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
             }, 1000);
     }
 
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>
-    {
+    class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
-        {
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
                     RecyclerViewActivity.this).inflate(R.layout.item_recycler, parent,
                     false));
@@ -137,9 +133,8 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         }
 
         @Override
-        public void onBindViewHolder(final MyViewHolder holder, final int position)
-        {
-            holder.tv.setText(mDatas.get(position) + ":" +position);
+        public void onBindViewHolder(final MyViewHolder holder, final int position) {
+            holder.tv.setText(mDatas.get(position) + ":" + position);
             holder.tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -161,20 +156,17 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         }
 
         @Override
-        public int getItemCount()
-        {
+        public int getItemCount() {
             return mDatas.size();
         }
 
-        class MyViewHolder extends RecyclerView.ViewHolder
-        {
+        class MyViewHolder extends RecyclerView.ViewHolder {
 
             TextView tv;
             TextView menu;
             SwipeLayout swipeLayout;
 
-            public MyViewHolder(View view)
-            {
+            public MyViewHolder(View view) {
                 super(view);
                 tv = (TextView) view.findViewById(R.id.id_item_list_title);
                 swipeLayout = (SwipeLayout) view.findViewById(R.id.swipe);

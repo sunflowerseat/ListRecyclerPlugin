@@ -98,6 +98,31 @@ public class ListPlugin {
 
         return this;
     }
+    public ListPlugin createAddMore(LayoutInflater inflater,boolean initVisible, final LoadMoreListener listener) {
+        if (initVisible) {
+            footer = inflater.inflate(R.layout.default_loading, null);
+            listView.addFooterView(footer);
+        }
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == view.getCount()-1) {
+                    if (!nowRequest) {
+                        nowRequest = true;
+                        listener.onLoadMore();
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
+
+        return this;
+    }
 
     public View getAddMoreView() {
         return footer;

@@ -102,7 +102,7 @@ public class RecyclerPlugin {
 
     public RecyclerPlugin createHeader(int resid) {
         headerAndFooterAdapter = new HeaderAndFooterAdapter(adapter);
-        header = inflater.inflate(resid, null);
+        header = inflater.inflate(resid, null,false);
         headerAndFooterAdapter.addHeaderView(header);
         lastAdapter = headerAndFooterAdapter;
 
