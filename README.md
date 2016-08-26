@@ -26,8 +26,8 @@ listview的依赖方式
 plugin = new RecyclerPlugin(getLayoutInflater(),this,recycler, mAdapter);
 //创建广告位（提供多种方式）
 plugin.createHeader(R.layout.headview);
-//创建底部加载更多视图  this是一个监听，当加载更多界面显示时的调用的方法  
-plugin.setNoMoreView(R.layout.nomore_loading);
+//创建底部加载更多视图  this要实现LoadMoreAdapter.OnLoadMoreListener监听，当加载更多界面显示时会回调  
+plugin.createAddMore(false, this);
 //把最终包装好的Adapter设置到RecyclerView中
 recycler.setAdapter(plugin.getLastAdapter());
 
@@ -120,8 +120,22 @@ if (addDataLength < 10) {
 或者想用其他的自定义的Recyclerview但是，自定义Recyclerview并没有上拉加载和侧滑功能，可以通过添加这个小插件达到添加这些功能的目的。
 
 
-创建上拉加载的时候需要传一个回调方法，里面执行的是footer显示的时候执行的方法，记得要在添加数据之后执行plugin.setNowRequest(false);
-否则下次不会再执行这个回调，这个是为了防止加载数据时不停上下滑动，重复触发回调的。
 
+
+recylerPlugin创建上拉加载的时候，如果没有设置严格模式，当加载数据布局反复不停上下滑动时，是会重复触发回调的。
+解决办法：
+在创建上拉加载布局时，设置严格模式为true。
+```
+plugin.createAddMore(***,****,***);
+plugin.setStrict(true);
+```
+然后在加载数据完数据的时候，通知plugin数据加载完毕。
+```
+mAdapter.notifyDataSetChanged();
+plugin.setNowRequest(false);
+```
+
+listPlugin,创建上拉加载的时候需要传一个回调方法，里面执行的是footer显示的时候执行的方法，记得要在添加数据之后执行plugin.setNowRequest(false);
+否则下次不会再执行这个回调，这个是为了防止加载数据时不停上下滑动，重复触发回调的。
 
 有问题提issue，或者加群讨论：283272067

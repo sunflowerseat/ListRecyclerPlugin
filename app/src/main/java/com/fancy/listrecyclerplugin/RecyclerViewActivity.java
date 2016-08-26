@@ -51,6 +51,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
         plugin.createHeader(R.layout.headview);
         /** 添加代码 创建加载更多视图*/
         plugin.createAddMore(false, null);
+        plugin.setStrict(true);
         plugin.setNoMoreView(R.layout.nomore_loading);
         /**设置加载更多视图不可见 当数据不足一屏时，可调用该方法*/
 //        plugin.setAddMoreVisible(false);
@@ -119,7 +120,7 @@ public class RecyclerViewActivity extends AppCompatActivity implements LoadMoreA
                     }
 
                 }
-            }, 1000);
+            }, 3000);
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {

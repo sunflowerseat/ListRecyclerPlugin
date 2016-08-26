@@ -34,6 +34,9 @@ public class RecyclerPlugin {
     public RecyclerView.Adapter lastAdapter;
     boolean hasFooter = true;
 
+
+
+
     public LayoutInflater inflater;
 
     public RecyclerPlugin(LayoutInflater inflater, Context context, RecyclerView recyclerView, RecyclerView.Adapter adapter) {
@@ -267,6 +270,10 @@ public class RecyclerPlugin {
     public void setOnLoadMoreListener(LoadMoreAdapter.OnLoadMoreListener l) {
         if (loadMoreAdapter != null)
             loadMoreAdapter.setOnLoadMoreListener(l);
+    }
+
+    public void setStrict(boolean strict) {
+        loadMoreAdapter.setStrict(strict);
     }
 
 }

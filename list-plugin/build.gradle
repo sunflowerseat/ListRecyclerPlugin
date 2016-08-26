@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
@@ -25,14 +24,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-publish {
-    userOrg = 'sunflowerseat'//bintray.com用户名
-    groupId = 'com.fancy.library'//jcenter上的路径,要保持与之前导入到bintary中的package名一致
-    artifactId = 'listplugin'//项目名称
-    publishVersion = '1.0.2'//版本号
-    desc = 'this is a listview helper library.'//描述
-    website = 'https://github.com/sunflowerseat/ListRecyclerPlugin'//填写之前上传到github后的地址
-}
+
 
 
 

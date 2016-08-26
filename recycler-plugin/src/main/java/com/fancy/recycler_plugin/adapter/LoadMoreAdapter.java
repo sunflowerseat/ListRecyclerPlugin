@@ -25,6 +25,8 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     public boolean nowRequest = false;
     public boolean hasMoreData = true;
 
+    boolean strict = false;
+
     public LoadMoreAdapter(RecyclerView.Adapter adapter)
     {
         mInnerAdapter = adapter;
@@ -170,10 +172,15 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     public void addData() {
-        if (!nowRequest) {
-            nowRequest = true;
+        if (strict) {
+            if (!nowRequest) {
+                nowRequest = true;
+                mOnLoadMoreListener.onLoadMoreRequested();
+            }
+        } else {
             mOnLoadMoreListener.onLoadMoreRequested();
         }
+
     }
 
     public LoadMoreAdapter setLoadMoreView(View loadMoreView)
@@ -226,5 +233,9 @@ public class LoadMoreAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void registerAdapterDataObserver(RecyclerView.AdapterDataObserver observer) {
         mInnerAdapter.registerAdapterDataObserver(observer);
+    }
+
+    public void setStrict(boolean strict) {
+        this.strict = strict;
     }
 }
