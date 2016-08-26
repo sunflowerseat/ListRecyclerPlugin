@@ -7,11 +7,11 @@ listview的也写了，但不知道意义大不大，感觉没什么用，listvi
 
 已上传到jcenter，recyclerview的依赖方式
 
-`compile 'com.fancy.library:recyclerplugin:1.0.2'`
+`compile 'com.fancy.library:recyclerplugin:1.0.3'`
 
 listview的依赖方式
 
-`compile 'com.fancy.library:listplugin:1.0.1'`
+`compile 'com.fancy.library:listplugin:1.0.2'`
 
 
 效果图如下：
