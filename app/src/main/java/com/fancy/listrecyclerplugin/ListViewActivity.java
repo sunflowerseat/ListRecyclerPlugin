@@ -27,13 +27,14 @@ public class ListViewActivity extends AppCompatActivity implements LoadMoreListe
 
     ListPlugin plugin;
 
+    int listTime = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
         listview = (ListView) findViewById(R.id.listview);
         refresh = (SwipeRefreshLayout) findViewById(R.id.refresh);
-        initData();
 
         mAdapter = new CommonAdapter<String>(ListViewActivity.this,mDatas,R.layout.item_list) {
             @Override
@@ -54,20 +55,30 @@ public class ListViewActivity extends AppCompatActivity implements LoadMoreListe
         };
 
         /** 添加代码 创建一个listPlugin*/
-        plugin = new ListPlugin(this,listview, mAdapter);
+        plugin = new ListPlugin(getLayoutInflater(),this,listview, mAdapter);
         /** 添加代码 创建Header*/
-        plugin.createHeader(getLayoutInflater(), R.layout.headview);
+        plugin.createHeader(R.layout.headview);
         /** 添加代码 创建加载更多视图*/
-        plugin.createAddMore(getLayoutInflater() ,this);
-
+        plugin.createAddMore(false,this);
+        initData();
         listview.setAdapter(mAdapter);
 
     }
 
 
     void initData() {
-        for (int i = 0; i < 10; i++) {
+        int dataLength = 10;
+        for (int i = 0; i < dataLength; i++) {
             mDatas.add("position:"+i);
+        }
+        mAdapter.notifyDataSetChanged();
+        if (dataLength < 10) {
+            //初始化数据小于10条
+            plugin.setAddMoreVisible(true);
+            plugin.setOnLoadMoreListener(null);
+            plugin.changeAddMore(R.layout.nomore_loading);
+        } else {
+            plugin.setAddMoreVisible(true);
         }
 
         localImages.add(R.drawable.i1);
@@ -75,9 +86,17 @@ public class ListViewActivity extends AppCompatActivity implements LoadMoreListe
         localImages.add(R.drawable.i3);
     }
 
-    void addData() {
-        for (int i = 0; i < 10; i++) {
-            mDatas.add("Add-position:"+i);
+    int addData() {
+        if (++listTime < 2) {
+            for (int i = 0; i < 10; i++) {
+                mDatas.add("Add-position:" + i);
+            }
+            return 10;
+        } else {
+            for (int i = 0; i < 4; i++) {
+                mDatas.add("Last-position:" + i);
+            }
+            return 4;
         }
     }
 
@@ -89,9 +108,15 @@ public class ListViewActivity extends AppCompatActivity implements LoadMoreListe
                 @Override
                 public void run()
                 {
-                    addData();
+                    int addDataLength = addData();
                     mAdapter.notifyDataSetChanged();
-                    plugin.nowRequest = false;
+                    if (addDataLength < 10) {
+                        plugin.nowRequest = false;
+                        plugin.setOnLoadMoreListener(null);
+                        plugin.changeAddMore(R.layout.nomore_loading);
+                    } else {
+                        plugin.nowRequest = false;
+                    }
                 }
             }, 3000);
     }

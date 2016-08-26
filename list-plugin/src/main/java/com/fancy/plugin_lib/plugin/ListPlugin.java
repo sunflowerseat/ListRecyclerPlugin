@@ -24,11 +24,14 @@ public class ListPlugin {
     public BaseAdapter adapter;
     boolean hasFooter = true;
     public boolean nowRequest = false;
+    public LayoutInflater inflater;
+    LoadMoreListener listener;
 
-    public ListPlugin(Context context, ListView listView, BaseAdapter adapter) {
+    public ListPlugin(LayoutInflater inflater, Context context, ListView listView, BaseAdapter adapter) {
         mContext = context;
         this.listView = listView;
         this.adapter = adapter;
+        this.inflater = inflater;
     }
 
     public ListPlugin createRefresh(View v) {
@@ -37,12 +40,11 @@ public class ListPlugin {
     }
 
 
-    public ListPlugin createHeader(LayoutInflater inflater, int resid) {
+    public ListPlugin createHeader(int resid) {
         header = inflater.inflate(resid, null);
         listView.addHeaderView(header);
         return this;
     }
-
 
 
     public ListPlugin addSwipe(SwipeLayout swipeLayout) {
@@ -75,16 +77,18 @@ public class ListPlugin {
     }
 
 
-    public ListPlugin createAddMore(LayoutInflater inflater, final LoadMoreListener listener) {
+    public ListPlugin createAddMore(final LoadMoreListener l) {
+        listener = l;
         footer = inflater.inflate(R.layout.default_loading, null);
         listView.addFooterView(footer);
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (view.getLastVisiblePosition() == view.getCount()-1) {
+                if (view.getLastVisiblePosition() == view.getCount() - 1) {
                     if (!nowRequest) {
                         nowRequest = true;
-                        listener.onLoadMore();
+                        if(listener != null)
+                            listener.onLoadMore();
                     }
                 }
             }
@@ -98,18 +102,21 @@ public class ListPlugin {
 
         return this;
     }
-    public ListPlugin createAddMore(LayoutInflater inflater,boolean initVisible, final LoadMoreListener listener) {
+
+    public ListPlugin createAddMore(boolean initVisible, int resid,final LoadMoreListener l) {
+        listener = l;
+        footer = inflater.inflate(resid, null);
         if (initVisible) {
-            footer = inflater.inflate(R.layout.default_loading, null);
             listView.addFooterView(footer);
         }
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-                if (view.getLastVisiblePosition() == view.getCount()-1) {
+                if (view.getLastVisiblePosition() == view.getCount() - 1) {
                     if (!nowRequest) {
                         nowRequest = true;
-                        listener.onLoadMore();
+                        if(listener != null)
+                            listener.onLoadMore();
                     }
                 }
             }
@@ -122,6 +129,40 @@ public class ListPlugin {
 
 
         return this;
+    }
+
+    public ListPlugin createAddMore(boolean initVisible, final LoadMoreListener l) {
+        listener = l;
+        footer = inflater.inflate(R.layout.default_loading, null);
+        if (initVisible) {
+            listView.addFooterView(footer);
+        }
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (view.getLastVisiblePosition() == view.getCount() - 1) {
+                    if (!nowRequest) {
+                        nowRequest = true;
+                        if(listener != null)
+                            listener.onLoadMore();
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
+
+
+        return this;
+    }
+
+    public void changeAddMore(int resId) {
+        listView.removeFooterView(footer);
+        footer = inflater.inflate(resId, null);
+        listView.addFooterView(footer);
     }
 
     public View getAddMoreView() {
@@ -140,6 +181,10 @@ public class ListPlugin {
 
     public boolean getHasFooter() {
         return hasFooter;
+    }
+
+    public void setOnLoadMoreListener(LoadMoreListener l) {
+        this.listener = l;
     }
 
 }
