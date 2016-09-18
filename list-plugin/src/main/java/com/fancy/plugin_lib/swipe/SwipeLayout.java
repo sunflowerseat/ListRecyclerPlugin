@@ -48,6 +48,11 @@ public class SwipeLayout extends LinearLayout {
 
         View rightView = this.getChildAt(1);
         rightViewWidth = rightView.getMeasuredWidth();
+
+        if (rightViewWidth == 0) {
+            rightView.measure(LayoutParams.WRAP_CONTENT,rightView.getMeasuredHeight());
+            rightViewWidth = rightView.getMeasuredWidth();
+        }
     }
 
     @Override
