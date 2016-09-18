@@ -139,3 +139,7 @@ listPlugin,创建上拉加载的时候需要传一个回调方法，里面执行
 否则下次不会再执行这个回调，这个是为了防止加载数据时不停上下滑动，重复触发回调的。
 
 有问题提issue，或者加群讨论：283272067
+
+
+##Change Log & fix bug
+v1.0.4 swipemenu支持宽度为wrap_content. 但宽度为wrap_content时，高度必须写明具体高度。
