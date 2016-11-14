@@ -1,3 +1,3 @@
-include ':app', ':list-plugin', ':recycler-plugin'
+include ':app', ':list-plugin', ':recycler-plugin', ':adapterutil'
 
 

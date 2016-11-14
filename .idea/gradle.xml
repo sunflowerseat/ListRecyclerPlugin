@@ -8,19 +8,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/adapterutil" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/list-plugin" />
             <option value="$PROJECT_DIR$/recycler-plugin" />
           </set>
         </option>
-        <option name="myModules">
-          <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/list-plugin" />
-            <option value="$PROJECT_DIR$/recycler-plugin" />
-          </set>
-        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
