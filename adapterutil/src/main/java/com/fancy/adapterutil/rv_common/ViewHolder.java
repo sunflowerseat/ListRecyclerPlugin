@@ -20,8 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.fancy.adapterutil.util.BackgroundTintUtil;
 import com.squareup.picasso.Picasso;
+
 import org.app.panama.adapterutil.R;
 
 /**
@@ -133,11 +133,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public ViewHolder setBackgroundTintRes(int viewId, int textColorRes) {
-        View view = getView(viewId);
-        view.setBackgroundTintList(BackgroundTintUtil.getColorTint(mContext.getResources().getColor(textColorRes)));
-        return this;
-    }
 
     public ViewHolder setImageUrl(int viewId, String URL) {
         ImageView view = getView(viewId);

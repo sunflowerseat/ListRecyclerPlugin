@@ -1,14 +1,15 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 17
         targetSdkVersion 23
         versionCode 1
-        versionName "1.0.3"
+        versionName "1.0"
     }
     buildTypes {
         release {
@@ -16,17 +17,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-
+    provided 'com.android.support:recyclerview-v7:23.4.0'
+    provided 'com.squareup.picasso:picasso:2.5.2'
+    //自己的插件库
+    compile 'com.fancy.library:recyclerplugin:1.0.4'
+    compile 'com.fancy.library:listplugin:1.0.4'
 }
-
-
-
-
 
