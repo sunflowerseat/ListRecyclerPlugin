@@ -1,26 +1,32 @@
-# ListRecyclerPlugin
-类似插件一样方便地为listview和recyclerview添加头部广告位，下拉刷新，上拉加载，滑动删除功能
+ListRecyclerPlugin
+===============
+类似插件一样方便地为listview和recyclerview添加头部广告位，下拉刷新，上拉加载，滑动删除功能。listview的也写了，但不知道意义大不大，感觉没什么用，listview本身就有addHeader和Footer的方法。经过两个星期的努力，终于把这个插件初步封装完毕。对于这个库的封装过程，可以参考
+**我的博客**: https://advancedrecyclerview.h6ah4i.com/
 
-listview的也写了，但不知道意义大不大，感觉没什么用，listview本身就有addHeader和Footer的方法
+---
 
-经过两个星期的努力，终于把这个插件初步封装完毕。对于这个库的封装过程，可以参考我的博客：http://blog.csdn.net/Fancy_xty/article/details/51958087
+依赖
+---
 
-已上传到jcenter，recyclerview的依赖方式
+```gradle
+dependencies {
+    compile 'com.fancy.library:recyclerplugin:1.0.3' //recyclerview
+    compile 'com.fancy.library:listplugin:1.0.3' //listview
+}
+```
+请自行根据需要选择。
 
-`compile 'com.fancy.library:recyclerplugin:1.0.3'`
+---
 
-listview的依赖方式
-
-`compile 'com.fancy.library:listplugin:1.0.3'`
-
-
-效果图如下：
+效果图
+---
 
 ![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/header.png "Title" )
 
 ![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/swipe_loadmore.png "Title")
 
-现在的使用方法是这样的。
+使用方法
+---
 ```java
 //创建一个RecyclerPlugin
 plugin = new RecyclerPlugin(getLayoutInflater(),this,recycler, mAdapter);
