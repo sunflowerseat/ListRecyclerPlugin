@@ -45,8 +45,6 @@ recycler.setAdapter(plugin.getLastAdapter());
 listview使用这个插件，用法基本一致，创建一个ListPlugin即可。
 
 
-
-
 接下来说说添加侧滑功能，首先要添加侧滑功能，布局文件要修改几乎是不可避免的了，不然怎么知道侧滑之后的布局，以及侧滑菜单的点击事件呢。
 不过所幸的是，改动也不大，准确来说是添加一部分代码，原先写好的代码仍然不需要进行修改,在原先代码的基础上增加部分代码即可。
 ```xml
@@ -85,6 +83,7 @@ listview使用这个插件，用法基本一致，创建一个ListPlugin即可�
 
 下拉刷新现在还没有封装起来，不过也提供了管理，下拉刷新可以在listview或Recyclerview外层包裹SwipeRefreshLayout，然后把SwipeRefreshLayout传给RecyclerPlugin或者ListPlugin来进行管理，主要是处理侧滑和下拉刷新的冲突，还有广告位的滑动冲突。
 
+---
 
 注意事项
 ---
