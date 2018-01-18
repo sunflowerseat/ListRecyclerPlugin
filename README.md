@@ -21,9 +21,8 @@ dependencies {
 效果图
 ---
 
-![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/header.png "Title" )
-
-![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/swipe_loadmore.png "Title")
+![演示效果图](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/header.png)
+![演示效果图](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/swipe_loadmore.png)
 
 使用方法
 ---
@@ -83,8 +82,39 @@ listview使用这个插件，用法基本一致，创建一个ListPlugin即可�
 
 下拉刷新现在还没有封装起来，不过也提供了管理，下拉刷新可以在listview或Recyclerview外层包裹SwipeRefreshLayout，然后把SwipeRefreshLayout传给RecyclerPlugin或者ListPlugin来进行管理，主要是处理侧滑和下拉刷新的冲突，还有广告位的滑动冲突。
 
-##增加功能
-支持设置没有更多数据时的布局。
+
+注意事项
+---
+
+使用这个库adapter还是要自己写的，只是在你写的基础上进行一层包装，适用于adapter已经写好，但想添加header、footer和侧滑的情况。
+
+也适用于自己有对adapter的封装，不想改变自己的写法的程序员们
+
+或者想用其他的自定义的Recyclerview但是，自定义Recyclerview并没有上拉加载和侧滑功能，可以通过添加这个小插件达到添加这些功能的目的。
+
+
+
+
+recylerPlugin创建上拉加载的时候，如果没有设置严格模式，当加载数据布局反复不停上下滑动时，是会重复触发回调的。
+解决办法：
+在创建上拉加载布局时，设置严格模式为true。
+```java
+plugin.createAddMore(***,****,***);
+plugin.setStrict(true);
+```
+然后在加载数据完数据的时候，通知plugin数据加载完毕。
+```java
+mAdapter.notifyDataSetChanged();
+plugin.setNowRequest(false);
+```
+
+listPlugin,创建上拉加载的时候需要传一个回调方法，里面执行的是footer显示的时候执行的方法，记得要在添加数据之后执行plugin.setNowRequest(false);
+否则下次不会再执行这个回调，这个是为了防止加载数据时不停上下滑动，重复触发回调的。
+
+
+更新：1.0.3 支持设置没有更多数据时的布局
+---
+
 如初始数据数目不定，如初始数据 = 10条则表示还有更多数据，此时应显示加载更多的布局。小于10条则应显示没有更多数据布局。
 设置方法如下，因初始数据数目不定。初始化的时候设置显示为false，监听为null
 ```java
@@ -116,36 +146,14 @@ if (addDataLength < 10) {
 }
 ```
 
+---
 
-##注意事项
+更新： v1.0.4 swipemenu支持宽度为wrap_content
+---
+swipemenu支持宽度为wrap_content. 但宽度为wrap_content时，高度必须写明具体高度。
 
-使用这个库adapter还是要自己写的，只是在你写的基础上进行一层包装，适用于adapter已经写好，但想添加header、footer和侧滑的情况。
-
-也适用于自己有对adapter的封装，不想改变自己的写法的程序员们
-
-或者想用其他的自定义的Recyclerview但是，自定义Recyclerview并没有上拉加载和侧滑功能，可以通过添加这个小插件达到添加这些功能的目的。
-
-
-
-
-recylerPlugin创建上拉加载的时候，如果没有设置严格模式，当加载数据布局反复不停上下滑动时，是会重复触发回调的。
-解决办法：
-在创建上拉加载布局时，设置严格模式为true。
-```java
-plugin.createAddMore(***,****,***);
-plugin.setStrict(true);
-```
-然后在加载数据完数据的时候，通知plugin数据加载完毕。
-```java
-mAdapter.notifyDataSetChanged();
-plugin.setNowRequest(false);
-```
-
-listPlugin,创建上拉加载的时候需要传一个回调方法，里面执行的是footer显示的时候执行的方法，记得要在添加数据之后执行plugin.setNowRequest(false);
-否则下次不会再执行这个回调，这个是为了防止加载数据时不停上下滑动，重复触发回调的。
+---
 
 有问题提issue，或者加群讨论：283272067
 
 
-##Change Log & fix bug
-v1.0.4 swipemenu支持宽度为wrap_content. 但宽度为wrap_content时，高度必须写明具体高度。
