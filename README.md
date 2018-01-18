@@ -4,6 +4,8 @@ ListRecyclerPlugin
 
 **我的博客**: https://advancedrecyclerview.h6ah4i.com/
 
+[ ![Download](https://api.bintray.com/packages/sunflowerseat/maven/recyclerplugin/images/download.svg) ](https://bintray.com/sunflowerseat/maven/recyclerplugin/_latestVersion)
+
 ---
 
 依赖
