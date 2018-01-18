@@ -41,7 +41,7 @@ listview使用这个插件，用法基本一致，创建一个ListPlugin即可�
 
 接下来说说添加侧滑功能，首先要添加侧滑功能，布局文件要修改几乎是不可避免的了，不然怎么知道侧滑之后的布局，以及侧滑菜单的点击事件呢。
 不过所幸的是，改动也不大，准确来说是添加一部分代码，原先写好的代码仍然不需要进行修改,在原先代码的基础上增加部分代码即可。
-```
+```xml
 <com.fancy.recycler_plugin.swipe.SwipeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -81,13 +81,13 @@ listview使用这个插件，用法基本一致，创建一个ListPlugin即可�
 支持设置没有更多数据时的布局。
 如初始数据数目不定，如初始数据 = 10条则表示还有更多数据，此时应显示加载更多的布局。小于10条则应显示没有更多数据布局。
 设置方法如下，因初始数据数目不定。初始化的时候设置显示为false，监听为null
-```
+```java
 plugin.createAddMore(false,null);
 //设置无数据时的布局 ， 如无该需求，忽略
 plugin.setNoMoreView(R.layout.nomore_loading);
 ```
 当加载到初始数据时，根据数据的数目进行判断。
-```
+```java
 if (dataLength < 10) {
     plugin.setAddMoreVisible(true,null, R.layout.default_loading);
     //设置无更多数据
@@ -98,7 +98,7 @@ if (dataLength < 10) {
 ```
 
 当加载到新数据时，根据加载数据的数量来判断，是显示 “加载更多” 布局，还是 “无更多数据” 布局
-```
+```java
 if (addDataLength < 10) {
     mAdapter.notifyDataSetChanged();
     plugin.setNowRequest(false);
@@ -125,12 +125,12 @@ if (addDataLength < 10) {
 recylerPlugin创建上拉加载的时候，如果没有设置严格模式，当加载数据布局反复不停上下滑动时，是会重复触发回调的。
 解决办法：
 在创建上拉加载布局时，设置严格模式为true。
-```
+```java
 plugin.createAddMore(***,****,***);
 plugin.setStrict(true);
 ```
 然后在加载数据完数据的时候，通知plugin数据加载完毕。
-```
+```java
 mAdapter.notifyDataSetChanged();
 plugin.setNowRequest(false);
 ```
