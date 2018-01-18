@@ -117,6 +117,10 @@ listPlugin,创建上拉加载的时候需要传一个回调方法，里面执行
 更新：
 ---
 
+#### v1.0.4
+- swipemenu支持宽度为wrap_content
+但宽度为wrap_content时，高度必须写明具体高度。
+
 #### v1.0.3
 - 支持设置没有更多数据时的布局
 如初始数据数目不定，如初始数据 = 10条则表示还有更多数据，此时应显示加载更多的布局。小于10条则应显示没有更多数据布局。
@@ -149,10 +153,6 @@ if (addDataLength < 10) {
     plugin.setNowRequest(false);
 }
 ```
-
-#### v1.0.4
-- swipemenu支持宽度为wrap_content
-但宽度为wrap_content时，高度必须写明具体高度。
 
 ---
 
