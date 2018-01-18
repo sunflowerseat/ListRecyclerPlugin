@@ -1,6 +1,7 @@
 ListRecyclerPlugin
 ===============
 类似插件一样方便地为listview和recyclerview添加头部广告位，下拉刷新，上拉加载，滑动删除功能。listview的也写了，但不知道意义大不大，感觉没什么用，listview本身就有addHeader和Footer的方法。经过两个星期的努力，终于把这个插件初步封装完毕。对于这个库的封装过程，可以参考
+
 **我的博客**: https://advancedrecyclerview.h6ah4i.com/
 
 ---
@@ -111,10 +112,13 @@ plugin.setNowRequest(false);
 listPlugin,创建上拉加载的时候需要传一个回调方法，里面执行的是footer显示的时候执行的方法，记得要在添加数据之后执行plugin.setNowRequest(false);
 否则下次不会再执行这个回调，这个是为了防止加载数据时不停上下滑动，重复触发回调的。
 
-
-更新：1.0.3 支持设置没有更多数据时的布局
 ---
 
+更新：
+---
+
+#### v1.0.3
+- 支持设置没有更多数据时的布局
 如初始数据数目不定，如初始数据 = 10条则表示还有更多数据，此时应显示加载更多的布局。小于10条则应显示没有更多数据布局。
 设置方法如下，因初始数据数目不定。初始化的时候设置显示为false，监听为null
 ```java
@@ -146,11 +150,9 @@ if (addDataLength < 10) {
 }
 ```
 
----
-
-更新： v1.0.4 swipemenu支持宽度为wrap_content
----
-swipemenu支持宽度为wrap_content. 但宽度为wrap_content时，高度必须写明具体高度。
+#### v1.0.4
+- swipemenu支持宽度为wrap_content
+但宽度为wrap_content时，高度必须写明具体高度。
 
 ---
 
