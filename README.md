@@ -21,7 +21,7 @@ listview的依赖方式
 ![alt text](https://github.com/sunflowerseat/ListRecyclerPlugin/blob/master/preview/swipe_loadmore.png "Title")
 
 现在的使用方法是这样的。
-```
+```java
 //创建一个RecyclerPlugin
 plugin = new RecyclerPlugin(getLayoutInflater(),this,recycler, mAdapter);
 //创建广告位（提供多种方式）
@@ -65,7 +65,7 @@ listview使用这个插件，用法基本一致，创建一个ListPlugin即可�
             android:id="@+id/swipemenu"
             />
 
-    </com.fancy.recycler_plugin.swipe.SwipeLayout>
+</com.fancy.recycler_plugin.swipe.SwipeLayout>
 ```
 在Adapter中为原有的XXLayout添加点击事件代替setOnItemClickListener();
 为SwipeMenuXXLayout添加点击事件，或者为这个布局内部的控件添加点击事件，这都是自己控制的了。
