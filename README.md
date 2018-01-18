@@ -2,7 +2,7 @@ ListRecyclerPlugin
 ===============
 类似插件一样方便地为listview和recyclerview添加头部广告位，下拉刷新，上拉加载，滑动删除功能。listview的也写了，但不知道意义大不大，感觉没什么用，listview本身就有addHeader和Footer的方法。经过两个星期的努力，终于把这个插件初步封装完毕。对于这个库的封装过程，可以参考
 
-**我的博客**: https://advancedrecyclerview.h6ah4i.com/
+**我的博客**: http://blog.csdn.net/Fancy_xty/article/details/51958087
 
 [ ![Download](https://api.bintray.com/packages/sunflowerseat/maven/recyclerplugin/images/download.svg) ](https://bintray.com/sunflowerseat/maven/recyclerplugin/_latestVersion)
 
@@ -158,6 +158,6 @@ if (addDataLength < 10) {
 
 ---
 
-有问题提issue，或者加群讨论：283272067
+有问题提issue
 
 
